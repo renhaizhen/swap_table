@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
 import CrossTable from './cross_table';
-import Bezier from './bezier';
-import BezierTool from './bezierTool'
-import ReactBezier from './breact_bezier'
+import Bezier from './bezier'
 
 function IndexPage() {
   return (
@@ -16,8 +14,7 @@ function IndexPage() {
         <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
       </ul> */}
     {/* <CrossTable/> */}
-    {/* <Bezier/> */}
-    <ReactBezier/>
+    <Bezier/>
     </div>
   );
 }
