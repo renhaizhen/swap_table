@@ -17,10 +17,10 @@ class CrossTable extends Component {
       <Spin />
     </div>)
   }
-  componentWillMount() {
-    const connDb = { ip: '47.57.72.27', tbName: 'coin_swap_history' }
-    this.dispatch('getTableDatas', connDb);
-  }
+  // componentWillMount() {
+  //   const connDb = { ip: '47.57.72.27', tbName: 'coin_swap_history' }
+  //   this.dispatch('getTableDatas', connDb);
+  // }
   _genRenderTable() {
     console.log(this.props)
     const dataSource = [
