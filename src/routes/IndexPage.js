@@ -4,6 +4,8 @@ import styles from './IndexPage.css';
 import CrossTable from './cross_table';
 import Bezier from './bezier';
 import BezierTool from './bezierTool'
+import ReactBezier from './breact_bezier'
+
 function IndexPage() {
   return (
     <div className={styles.normal}>
@@ -15,7 +17,7 @@ function IndexPage() {
       </ul> */}
     {/* <CrossTable/> */}
     {/* <Bezier/> */}
-    <BezierTool/>
+    <ReactBezier/>
     </div>
   );
 }
