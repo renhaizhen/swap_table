@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from './getStyles';
+import { threeBezier ,getBezierY} from './utils';
 class bezier extends Component {
   constructor(props) {
     super(props);
@@ -44,23 +45,23 @@ class bezier extends Component {
        * @param {Array} cp1 控制点1
        * @param {Array} cp2 控制点2
        */
-      function threeBezier(t, p1, cp1, cp2, p2) {
-        const [x1, y1] = p1;
-        const [x2, y2] = p2;
-        const [cx1, cy1] = cp1;
-        const [cx2, cy2] = cp2;
-        let x =
-          x1 * (1 - t) * (1 - t) * (1 - t) +
-          3 * cx1 * t * (1 - t) * (1 - t) +
-          3 * cx2 * t * t * (1 - t) +
-          x2 * t * t * t;
-        let y =
-          y1 * (1 - t) * (1 - t) * (1 - t) +
-          3 * cy1 * t * (1 - t) * (1 - t) +
-          3 * cy2 * t * t * (1 - t) +
-          y2 * t * t * t;
-        return [x, y];
-      }
+      // function threeBezier(t, p1, cp1, cp2, p2) {
+      //   const [x1, y1] = p1;
+      //   const [x2, y2] = p2;
+      //   const [cx1, cy1] = cp1;
+      //   const [cx2, cy2] = cp2;
+      //   let x =
+      //     x1 * (1 - t) * (1 - t) * (1 - t) +
+      //     3 * cx1 * t * (1 - t) * (1 - t) +
+      //     3 * cx2 * t * t * (1 - t) +
+      //     x2 * t * t * t;
+      //   let y =
+      //     y1 * (1 - t) * (1 - t) * (1 - t) +
+      //     3 * cy1 * t * (1 - t) * (1 - t) +
+      //     3 * cy2 * t * t * (1 - t) +
+      //     y2 * t * t * t;
+      //   return [x, y];
+      // }
       function getBezierT(p1, cp1, cp2, p2, p) {
         var [xp, yp] = p; //准备代入求t的点
         var t = 0;
@@ -75,35 +76,35 @@ class bezier extends Component {
         }
         return false;
       }
-      function getBezierY(x, st, et, p1, cp1, cp2, p2) {
-        /**
-       * @desc 二分法获取贝塞尔y值 t 值
-       * @param {number} t 初始百分比t值 1 st 0 et 1
-       * @param {number} x 输入x值
-       * @param {Array} p1 起点坐标
-       * @param {Array} p2 终点坐标
-       * @param {Array} cp1 控制点1
-       * @param {Array} cp2 控制点2
-       */
-        var t = (st + et) / 2;
-        const aim_ponit = threeBezier(t, p1, cp1, cp2, p2);
-        const aim_x = number2Fixed(aim_ponit[0]);//计算所得x
-        // console.log('aim_ponit',aim_x,x,st,et,t)
-        // console.log(Math.abs(aim_x-x))
-        if (Math.abs(aim_x - x) <= 0.01) {//x在误差范围内
-          return { t, pinit: aim_ponit }
-        } else if (aim_x > x) {//计算的aim_x>x
-          const s_t = t / 2;
-          const e_t = t;
-          // console.log(s_t,e_t,aim_x,x,'小于')
-          return getBezierY(x, s_t, e_t, p1, cp1, cp2, p2);
-        } else if (aim_x < x) {//计算的aim_x<x
-          const e_t = et;
-          const s_t = t;
-          // console.log(s_t,e_t,aim_x,x,'大于')
-          return getBezierY(x, s_t, e_t, p1, cp1, cp2, p2);
-        }
-      }
+      // function getBezierY(x, st, et, p1, cp1, cp2, p2) {
+      //   /**
+      //  * @desc 二分法获取贝塞尔y值 t 值
+      //  * @param {number} t 初始百分比t值 1 st 0 et 1
+      //  * @param {number} x 输入x值
+      //  * @param {Array} p1 起点坐标
+      //  * @param {Array} p2 终点坐标
+      //  * @param {Array} cp1 控制点1
+      //  * @param {Array} cp2 控制点2
+      //  */
+      //   var t = (st + et) / 2;
+      //   const aim_ponit = threeBezier(t, p1, cp1, cp2, p2);
+      //   const aim_x = number2Fixed(aim_ponit[0]);//计算所得x
+      //   // console.log('aim_ponit',aim_x,x,st,et,t)
+      //   // console.log(Math.abs(aim_x-x))
+      //   if (Math.abs(aim_x - x) <= 0.0051) {//x在误差范围内
+      //     return { t, pinit: aim_ponit }
+      //   } else if (aim_x > x) {//计算的aim_x>x
+      //     const s_t = t / 2;
+      //     const e_t = t;
+      //     console.log(s_t,e_t,aim_x,x,'小于')
+      //     return getBezierY(x, s_t, e_t, p1, cp1, cp2, p2);
+      //   } else if (aim_x < x) {//计算的aim_x<x
+      //     const e_t = et;
+      //     const s_t = t;
+      //     console.log(s_t,e_t,aim_x,x,'大于')
+      //     return getBezierY(x, s_t, e_t, p1, cp1, cp2, p2);
+      //   }
+      // }
       function init() {
         point = { p1: { x: point.p1.x, y: point.p1.y }, p2: { x: point.p2.x, y: point.p2.y }, cp1: { x: point.cp1.x, y: point.cp1.y } };
         if (isQuadratic) {
@@ -182,7 +183,7 @@ class bezier extends Component {
         const t = 0.68115234375;
         const aim_ponit = threeBezier(t, p1, cp1, cp2, p2);
         const fun_t = number2Fixed(getBezierT(p1, cp1, cp2, p2, aim_ponit));
-        const qqq = getBezierY(0.65625, 0, 1, p1, cp1, cp2, p2);
+        const qqq = getBezierY(0.6486999047105202, 0, 1, p1, cp1, cp2, p2);
         console.log('aim_ponit:',aim_ponit,t,fun_t,'计算:',qqq)
         // console.log('getBezierY:',qqq)
         // code.innerHTML= moveTo + codeHTML ;
