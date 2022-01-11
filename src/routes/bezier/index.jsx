@@ -9,13 +9,7 @@ class bezier extends Component {
 
     };
   }
-  // componentWillMount(){
-  // }
-  // 3阶贝塞尔曲线原公式
-  threebsr(t, a1, a2, a3, a4) {
-    return a1 * (1 - t) * (1 - t) * (1 - t) + 3 * a2 * t * (1 - t) * (1 - t) + 3 * a3 * t * t * (1 - t) + a4 * t * t * t;
-  }
-
+ 
   componentDidMount() {
     var canvas = this.canvas;
     var code = this.code;
@@ -36,32 +30,7 @@ class bezier extends Component {
           }
         };
       init();
-      // 3阶贝塞尔曲线展开式
-      /**
-       * @desc 三阶贝塞尔
-       * @param {number} t 当前百分比
-       * @param {Array} p1 起点坐标
-       * @param {Array} p2 终点坐标
-       * @param {Array} cp1 控制点1
-       * @param {Array} cp2 控制点2
-       */
-      // function threeBezier(t, p1, cp1, cp2, p2) {
-      //   const [x1, y1] = p1;
-      //   const [x2, y2] = p2;
-      //   const [cx1, cy1] = cp1;
-      //   const [cx2, cy2] = cp2;
-      //   let x =
-      //     x1 * (1 - t) * (1 - t) * (1 - t) +
-      //     3 * cx1 * t * (1 - t) * (1 - t) +
-      //     3 * cx2 * t * t * (1 - t) +
-      //     x2 * t * t * t;
-      //   let y =
-      //     y1 * (1 - t) * (1 - t) * (1 - t) +
-      //     3 * cy1 * t * (1 - t) * (1 - t) +
-      //     3 * cy2 * t * t * (1 - t) +
-      //     y2 * t * t * t;
-      //   return [x, y];
-      // }
+
       function getBezierT(p1, cp1, cp2, p2, p) {
         var [xp, yp] = p; //准备代入求t的点
         var t = 0;
@@ -179,13 +148,12 @@ class bezier extends Component {
         const cp2 = [cp2x, cp2x];
         // const cp1 = [0,1];
         // const cp2 = [1,0];
-        //x,y 分100份 最小单位0.01 起始0 结束1(100)
-        const t = 0.68115234375;
+        const t = 0.9011077880859375;
         const aim_ponit = threeBezier(t, p1, cp1, cp2, p2);
-        const fun_t = number2Fixed(getBezierT(p1, cp1, cp2, p2, aim_ponit));
-        const qqq = getBezierY(0.6486999047105202, 0, 1, p1, cp1, cp2, p2);
-        console.log('aim_ponit:',aim_ponit,t,fun_t,'计算:',qqq)
-        // console.log('getBezierY:',qqq)
+        // const fun_t = number2Fixed(getBezierT(p1, cp1, cp2, p2, aim_ponit));
+        const bezierY = getBezierY(0.9, 0, 1, p1, cp1, cp2, p2);
+        // console.log('aim_ponit:',aim_ponit,t,fun_t,'计算:',qqq)
+        console.log('getBezierY:',bezierY['point'],bezierY,'aim_ponit:',aim_ponit)
         // code.innerHTML= moveTo + codeHTML ;
         // const point_info= `x:${aim_ponit[0]} y:${aim_ponit[1]} \n` ;
         code.innerHTML = codeHTML;

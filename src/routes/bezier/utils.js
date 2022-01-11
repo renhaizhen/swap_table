@@ -48,7 +48,7 @@ function getBezierY(x, st, et, p1, cp1, cp2, p2) {
     const aim_x = number2Fixed(aim_ponit[0]);//计算所得x
     // console.log(Math.abs(aim_x-x))
     if (Math.abs(aim_x - x) <= 0.005) {//x在误差范围内
-        return { t, pinit: aim_ponit }
+        return { t, point: aim_ponit }
     } else if (aim_x > x) {//计算的aim_x>x
         const s_t = t / 2;
         const e_t = t;
